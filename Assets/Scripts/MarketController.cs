@@ -50,13 +50,13 @@ public class MarketController : MonoBehaviour
 
         // Add an initial stock
         AddStock();
+/*        AddStock();
         AddStock();
         AddStock();
         AddStock();
         AddStock();
         AddStock();
-        AddStock();
-        AddStock();
+        AddStock();*/
 
 
     }

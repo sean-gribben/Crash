@@ -65,6 +65,7 @@ public class PopupBehaviour : MonoBehaviour
         yesButton.onClick.AddListener(CallHook);
 
         noButton.onClick.AddListener(ClosePopup);
+        okButton.onClick.AddListener(CallHook);
         okButton.onClick.AddListener(ClosePopup);
     }
 

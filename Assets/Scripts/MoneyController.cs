@@ -30,8 +30,8 @@ public class MoneyController : MonoBehaviour
 
         arrowImage = transform.Find("Arrow").GetComponent<Image>();
 
-        totalMoneyText.text = money.ToString();
-        liquidMoneyText.text = money.ToString();
+        totalMoneyText.text = money.ToString("N0");
+        liquidMoneyText.text = money.ToString("N0");
     }
 
     public bool UpdateLiquid(float update) {
@@ -42,7 +42,7 @@ public class MoneyController : MonoBehaviour
             return false;
         }
         money += update;
-        liquidMoneyText.text = money.ToString();
+        liquidMoneyText.text = money.ToString("N0");
 
         if (addToAssets) {
             float newAssetMoney = (float.Parse(assetMoneyText.text) - update);
@@ -50,7 +50,7 @@ public class MoneyController : MonoBehaviour
                 newAssetMoney = 0f;
             }
 
-            assetMoneyText.text = newAssetMoney.ToString();
+            assetMoneyText.text = newAssetMoney.ToString("N0");
         }
 
         
@@ -67,7 +67,7 @@ public class MoneyController : MonoBehaviour
         } else {
             arrowImage.sprite = downarrow;
         }
-        assetMoneyText.text = assets.ToString();
-        totalMoneyText.text = (money + assets).ToString();
+        assetMoneyText.text = assets.ToString("N0");
+        totalMoneyText.text = (money + assets).ToString("N0");
     }
 }
