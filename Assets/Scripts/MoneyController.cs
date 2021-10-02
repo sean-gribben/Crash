@@ -34,19 +34,26 @@ public class MoneyController : MonoBehaviour
         liquidMoneyText.text = money.ToString();
     }
 
-
     public bool UpdateLiquid(float update) {
+        return UpdateLiquid(update, true);
+    }
+   public bool UpdateLiquid(float update, bool addToAssets) {
         if(money + update < 0) {
             return false;
         }
         money += update;
         liquidMoneyText.text = money.ToString();
-        float newAssetMoney = (float.Parse(assetMoneyText.text) - update);
-        if(newAssetMoney < 0.03f) {
-            newAssetMoney = 0f;
+
+        if (addToAssets) {
+            float newAssetMoney = (float.Parse(assetMoneyText.text) - update);
+            if (newAssetMoney < 0.03f) {
+                newAssetMoney = 0f;
+            }
+
+            assetMoneyText.text = newAssetMoney.ToString();
         }
 
-        assetMoneyText.text = newAssetMoney.ToString();
+        
         return true;
     }
 

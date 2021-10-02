@@ -11,7 +11,7 @@ public class MarketController : MonoBehaviour
     void OnEnable() { market = this; }
     void OnDisable() { market = null; }
 
-    public float minStartVal = 0.03f;
+    public float minStartVal = 5f;
     public float maxStartVal = 10f;
 
     public float minVolatility = 1f;
@@ -19,6 +19,8 @@ public class MarketController : MonoBehaviour
 
     public float minDph = -0.03f;
     public float maxDph = 0.07f;
+
+    public float minStockPrice;
 
 
     public float secondsPerHour;
@@ -29,7 +31,9 @@ public class MarketController : MonoBehaviour
 
     System.Random rand = new System.Random();
 
-    private string[] tickers = { "PISS", "DUMP", "REC", "ESS", "IVE", "MUC", "SUSY", "BALZ", "IMP", "GME", "RKT", "BB", "NOK", "AMC", "SPCE" };
+    private string[] tickers = { "PISS", "DUMP", "REC", "ESS", "IVE", "MUC", "SUSY", "BALZ", "IMP", "GME", "RKT", "BB", 
+        "NOK", "AMC", "SPCE", "LIT", "NUT", "JAZZ", "POG", "KEK", "UWU", "GARY", "LGBT", "MOON", "ATSM", "E",
+        "LMAO", "WHO", "DID", "THIS"};
 
     private RectTransform rectTrans;
     private float stockAddLocator = 182f;
@@ -46,13 +50,13 @@ public class MarketController : MonoBehaviour
 
         // Add an initial stock
         AddStock();
-/*        AddStock();
         AddStock();
         AddStock();
         AddStock();
         AddStock();
         AddStock();
-        AddStock();*/
+        AddStock();
+        AddStock();
 
 
     }
@@ -67,6 +71,7 @@ public class MarketController : MonoBehaviour
         stockBehav.volatility = RandomUtility.NextFloat(rand, minVolatility, maxVolatility);
         stockBehav.dph = RandomUtility.NextFloat(rand, minDph, maxDph);
         stockBehav.code = tickers[stonks.Count];
+        stockBehav.minStockPrice = minStockPrice;
 
         stockBehav.UpdateSocks("Init");
 

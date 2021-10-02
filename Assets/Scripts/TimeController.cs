@@ -22,19 +22,12 @@ public class TimeController : MonoBehaviour
     }
 
 
-    void test() {
-        Debug.Log("Running ran");
-    }
-
     public void UpdateTime(string p) {
         hours--;
         if(hours < 0) {
             hours = 23;
             days--;
         }
-
-
-
 
         timeText.text = days + " Days, " + hours + " Hours";
     }

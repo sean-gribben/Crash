@@ -19,6 +19,9 @@ public class QuantityController : MonoBehaviour
 
     Text quantityText;
 
+    public AudioSource ButtonSound;
+    public AudioSource ErrorSound;
+
     private void Start() {
         plusButton = transform.Find("Increase").GetComponent<Button>();
         minusButton = transform.Find("Decrease").GetComponent<Button>();
@@ -29,11 +32,18 @@ public class QuantityController : MonoBehaviour
     }
 
     void IncreaseQuantity() {
+        if(stockQuantity != maxQuantity) {
+            ButtonSound.Play();
+        }
+
         stockQuantity = Mathf.Min(maxQuantity, stockQuantity * 2);
         quantityText.text = stockQuantity.ToString();
     }
 
     void DecreaseQuantity() {
+        if (stockQuantity != 1) {
+            ButtonSound.Play();
+        }
         stockQuantity = Mathf.Max(1, stockQuantity / 2);
         quantityText.text = stockQuantity.ToString();
     }

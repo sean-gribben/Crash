@@ -11,6 +11,7 @@ public class StockBehaviour : MonoBehaviour
     public int stocks = 0;
     public float volatility;
     public float dph;
+    public float minStockPrice;
 
     public Sprite uparrow;
     public Sprite downarrow;
@@ -44,6 +45,8 @@ public class StockBehaviour : MonoBehaviour
 
         buyButton.onClick.AddListener(buyStocks);
         sellButton.onClick.AddListener(sellStocks);
+
+        
     }
 
 
@@ -61,7 +64,7 @@ public class StockBehaviour : MonoBehaviour
         
 
         float newVal = Mathf.Clamp(lastVal + RandomUtility.RandNorm(rand, dph, volatility), 0.8f*lastVal, 1.2f*lastVal); // Make sure the increase isn't too enourmous relative to stock price
-        newVal = Mathf.Max(0.03f, newVal); // Ensure the value of the stock stays positive
+        newVal = Mathf.Max(minStockPrice, newVal); // Ensure the value of the stock stays positive
 
         values.Add(newVal);
         valueText.text = newVal.ToString();

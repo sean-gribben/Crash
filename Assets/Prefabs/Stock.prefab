@@ -770,9 +770,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2e08ffcd78ea59744bdb3193258a7a70, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b96067838adfe3c4481f5df3d85f1fb9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.516
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1001,6 +1001,7 @@ MonoBehaviour:
   stocks: 0
   volatility: 0
   dph: 0
+  minStockPrice: 0
   uparrow: {fileID: 21300000, guid: 39fd5caa002b5f64ba9769d91495daef, type: 3}
   downarrow: {fileID: 21300000, guid: 45033c2c7929bb54bab7358b7a1781f3, type: 3}
 --- !u!1 &4051666559156455268
