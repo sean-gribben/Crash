@@ -54,7 +54,7 @@ public class NotificationController : MonoBehaviour
 
     private void Start() {
         ShowPopup("Welcome to Crash!", "After blowing 1 million dollars on hookers and cocaine " +
-            "you borrowed from the mob, you only have $100,000 and 6 months to pay them back! Do whatever you can to make money before the deadline!\n\n" +
+            "you borrowed from the mob, you only have $100,000 and 3 months to pay them back! Do whatever you can to make money before the deadline!\n\n" +
             "Be warned! In order to make your money back in time you are forced to use the most unstable market in the world! It crashes almost every day! " +
             "Lookout for signs it's crashing, and invest when it reaches it's low so you can make profit when it bounces back! A good news outlet should keep" +
             " you informed on when the next crash might occur...", popupTypes.ok, followUp);

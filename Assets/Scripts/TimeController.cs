@@ -12,12 +12,15 @@ public class TimeController : MonoBehaviour
 
 
     Text timeText;
-    public int days = 183;
+    public int days = 90;
     public int hours = 0;
+
+    public int startDays;
 
 
     void Start()
     {
+        startDays = days;
         timeText = GetComponent<Text>();
     }
 

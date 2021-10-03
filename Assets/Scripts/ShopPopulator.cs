@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShopPopulator : MonoBehaviour
 {
@@ -13,13 +14,14 @@ public class ShopPopulator : MonoBehaviour
     public float stockManipulationAmount = 2f;
 
     void endGame() {
-        Application.Quit();
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
     }
 
     void payMobBack() {
         MarketController.instance.paused = true;
-        NotificationController.instance.ShowPopup("Congratulations!", "After " + TimeController.instance.days + " days and " 
-            + TimeController.instance.hours + " hours you successfully payed back the mob!", popupTypes.ok, endGame);
+        NotificationController.instance.ShowPopup("Congratulations!", "After " + (TimeController.instance.startDays - TimeController.instance.days - 1) + " days " +
+            "you successfully payed back the mob!", popupTypes.ok, endGame);
     }
 
     int stocks = 2;
@@ -52,10 +54,10 @@ public class ShopPopulator : MonoBehaviour
     }
 
 
-    void upgradeAdBlocker() {
-        NotificationController.instance.ShowPopup(new popupCall("Buy our even BETTER ad blocker!", "Buy our even BETTER ad blocker for a more streamlined experience. Also we'll stop selling your information to the highest bidder", popupTypes.ok));
+    void upgradeAdBlocker() {        
         switch (NewsController.instance.adBlockerLevel) {
             case 0:
+                NotificationController.instance.ShowPopup(new popupCall("Buy our even BETTER ad blocker!", "Buy our even BETTER ad blocker for a more streamlined experience. Also we'll stop selling your information to the highest bidder", popupTypes.ok));
                 shop.AddShopItem(new ShopItem(10000, "Get access to the ultimate ad blocker", upgradeAdBlocker));
                 break;
         }
@@ -125,20 +127,21 @@ public class ShopPopulator : MonoBehaviour
             shop.AddShopItem(new ShopItem(10000, "Increase stock amount mined per bonk", improveBonk));
         }
 
-        if(ticks == 744) {
-            shop.AddShopItem(new ShopItem(25000, "Crash the market (does nothing during crash)", crashMarket));
-        }
-
-        if(ticks == 504) {
+        if (ticks == 350) {
             shop.AddShopItem(new ShopItem(50000, "Manipulate stock " + MarketController.instance.stonks[0].code + " to increase value", boostFirstStock));
         }
 
-        if (ticks == 1008) {
+        if (ticks == 600) {
+            shop.AddShopItem(new ShopItem(25000, "Crash the market (does nothing during crash)", crashMarket));
+        }
+        
+
+        if (ticks == 900) {
             if (MarketController.instance.stonks.Count < 2) return;
             shop.AddShopItem(new ShopItem(75000, "Manipulate stock " + MarketController.instance.stonks[1].code + " to increase value", boostSecondStock));
         }
 
-        if (ticks == 2016) {
+        if (ticks == 1200) {
             if (MarketController.instance.stonks.Count < 3) return;
             shop.AddShopItem(new ShopItem(100000, "Manipulate stock " + MarketController.instance.stonks[2].code + " to increase value", boostThirdStock));
         }
