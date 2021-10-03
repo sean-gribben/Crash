@@ -11,6 +11,10 @@ public class MarketController : MonoBehaviour
     void OnEnable() { market = this; }
     void OnDisable() { market = null; }
 
+    public GameObject tutorial;
+    public AudioSource contSound;
+
+
     public float minVolatility = 1f;
     public float maxVolatility = 6f;
 
@@ -22,8 +26,6 @@ public class MarketController : MonoBehaviour
 
     public float secondsPerHour;
     float sphTimer;
-
-    public bool started = false;
 
     public GameObject stock;
     public List<StockBehaviour> stonks = new List<StockBehaviour>();
@@ -39,6 +41,10 @@ public class MarketController : MonoBehaviour
 
     public static event System.Action<string> onMarketTick;
     public static event System.Action onMarketTickLate;
+
+    public bool boughtStockPriceViewer = false;
+
+    public bool paused = true;
 
     void Start()
     {
@@ -98,7 +104,13 @@ public class MarketController : MonoBehaviour
 
     void Update()
     {
-        if (!started) {
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
+            paused = !paused;
+            tutorial.SetActive(paused);
+        }
+
+
+        if (paused) {
             return;
         }
         sphTimer -= Time.deltaTime;

@@ -39,7 +39,7 @@ public class ShopItemBehaviour : MonoBehaviour
         if (!MoneyController.instance.UpdateLiquid(-price, false)) {
             ShopController.instance.ErrorSound.Play();
             if(Time.realtimeSinceStartup - lastClicked > 5f) {
-                NotificationController.instance.ShowNotification("You do not have the liquid funds to purchase this item!");
+                NotificationController.instance.ShowNotification("You do not have the liquid funds to purchase this item!", 2f);
             } // A bit of leeway in case the player has a stroke, just so they aren't spammed with messages. God knows they'll get enough of that already
             lastClicked = Time.realtimeSinceStartup;
             return;

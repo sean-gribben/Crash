@@ -79,20 +79,35 @@ public class StockBehaviour : MonoBehaviour
             arrow.sprite = downarrow;
         }
         currValue = newVal;
+
+        if (MarketController.instance.boughtStockPriceViewer) {
+            stockValueText.text = (currValue * stocks).ToString("N0");
+        }
     }
 
     void buyStocks() {
         if (!MoneyController.instance.UpdateLiquid(-currValue*QuantityController.instance.stockQuantity)) return;
         stocks += QuantityController.instance.stockQuantity;
         stockCountText.text = stocks.ToString();
+        if (MarketController.instance.boughtStockPriceViewer) {
+            stockValueText.text = (currValue * stocks).ToString("N0");
+        }
     }
 
     void sellStocks() {
-        if(stocks < QuantityController.instance.stockQuantity) {
+        if(stocks < 1) {
             return;
         }
-        stocks -= QuantityController.instance.stockQuantity;
-        MoneyController.instance.UpdateLiquid(currValue);
+        int takeAway = QuantityController.instance.stockQuantity;
+        if (stocks < takeAway) {
+            takeAway = stocks;
+        }
+
+        stocks -= takeAway;
+        MoneyController.instance.UpdateLiquid(currValue * takeAway);
         stockCountText.text = stocks.ToString();
+        if (MarketController.instance.boughtStockPriceViewer) {
+            stockValueText.text = (currValue * stocks).ToString("N0");
+        }
     }
 }

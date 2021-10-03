@@ -53,15 +53,19 @@ public class NotificationController : MonoBehaviour
     }
 
     private void Start() {
-        ShowPopup("Welcome to Crash!", "After blowing 1 million dollars on hookers and cocain " +
-            "you borrowed from the mob, you only have $20,000 and 1 month to pay them back! Do whatever you can to make money before the deadline!\n\n" +
-            "Use your news outlet (notifications at the bottom) to help give you an idea of when the market might crash!", popupTypes.ok, followUp);
+        ShowPopup("Welcome to Crash!", "After blowing 1 million dollars on hookers and cocaine " +
+            "you borrowed from the mob, you only have $100,000 and 1 year to pay them back! Do whatever you can to make money before the deadline!\n\n" +
+            "Be warned! In order to make your money back in time you are forced to use the most unstable market in the world! It crashes almost every day! " +
+            "Lookout for signs it's crashing, and invest when it reaches it's low so you can make profit when it bounces back! A good news outlet should keep" +
+            " you informed on when the next crash might occur...", popupTypes.ok, followUp);
     }
 
     void followUp() {
         ShopController.instance.GetComponent<ShopPopulator>().initItems();
-        MarketController.instance.started = true;
-        ShowNotification("Buy upgrades from the shop on the left, and stocks on the right! Try to time buying stocks when the price is low, and selling when the price is high!", 10f);
+        MarketController.instance.paused = true;
+        MarketController.instance.tutorial.SetActive(true);
+
+        // ShowNotification("Buy upgrades from the shop on the left, and stocks on the right! Try to time buying stocks when the price is low, and selling when the price is high!", 10f);
     }
 
     public void ShowPopup(popupCall call) {

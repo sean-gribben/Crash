@@ -16,20 +16,21 @@ public class NewsController : MonoBehaviour
     public float randomSpamChanceInCrash;
 
     public int newsLevel = 0;
-    public int addBlockerLevel = 0;
+    public int adBlockerLevel = 0;
 
     System.Random rand;
 
     string[] level0CrashMessages = { "Local man opens new ice cream stand. 'It's so good' says citizen", "We've been trying to reach you concerning your vehicle's extended warranty.",
     "People flock to beach on hot day", "'I feel really hungry' claims local man. Skeptics are unsure", "hi how r u going today", "I feel lonely", "BREAKING: got ur attention lol",
     "I'm getting fired for making irrelevant news headlines :(", "Shop on 5th is selling new doughnuts. They're really bad", "I think I ate something funny, I feel sick",
-    "Train operator turned Orchestral leader struck by lightning, sentenced to 10 years prison for Gross Misconduct."};
+    "E", "My Dad gave me a present!! Thank you Dad!", "You guys really believe in microwaves????"};
 
     string[] level1CrashMessages = {"Senator resigns in corruption scandal", "New study indicates lower levels of happiness amongst depressed individuals", "New cancer drug found innefective",
     "'Small outbreak' of flu-like disease detected in China", "Florida man transcends", "Apricot", "Autonomous cars soon to be released", "'It's tough on us all' - Billionaire philanthropist cries",
     "Market instability at an all time low"};
 
     string[] level2CrashMessages = { "Your informant indicates the market is unstable. It may crash soon" };
+
 
 
     string[] level0RandomNews;
@@ -44,8 +45,7 @@ public class NewsController : MonoBehaviour
     bool inPyarmidScheme = false;
 
 
-    popupCall[] level0Adds;
-    popupCall[] level1Adds;
+    popupCall[] ads;
 
 
     void joinPyramid() {
@@ -69,6 +69,7 @@ public class NewsController : MonoBehaviour
 
     void spookyWarning() {
         NotificationController.instance.ShowNotification("Buy it or we'll make your life hell");
+        ShopController.instance.GetComponent<ShopPopulator>().sellAdBlocker();
     }
 
     int chatCalls;
@@ -126,22 +127,16 @@ public class NewsController : MonoBehaviour
         level0RandomNews = level0CrashMessages;
 
 
-        level0Adds = new popupCall[] { new popupCall("LIMITED TIME OFFER", "LOSE ALL YOUR MONEY IN OUR PYRAMID SCHEME!! JUST CLICK YES TO JOIN!", popupTypes.yesno, joinPyramid),
+        ads = new popupCall[] { new popupCall("LIMITED TIME OFFER", "LOSE ALL YOUR MONEY IN OUR PYRAMID SCHEME!! JUST CLICK YES TO JOIN!", popupTypes.yesno, joinPyramid),
             new popupCall("Sned mony for fre mansin", "hi i am prince of nigurian. i need money for dyin mother please sned $1000 i will provide you with estates and $10,00,000", popupTypes.yesno, payPrince),
-            new popupCall("Buy our new add blocker!", "Buy our new add blocker from the shop to avoid nuisance popups! Aren't they annoying? Espicially when the market is crashing :) Yes this is a threat", popupTypes.ok, spookyWarning),
             new popupCall("DOCTORS HATE HIM", "TAKE THIS NEW REOVLUTINARY PILL TO INCREASE THE SIZE OF YOUR - Data Redacted", popupTypes.ok),
             new popupCall("Local milk in your area!", "It's really good mmmm yum. Comes in chocolate flavour too!", popupTypes.ok),
             new popupCall("Car's extended warranty", "We've been trying to reach you concerning your vehicle's extended warranty. You should've received a notice in the mail about your car's extended warranty eligibility.", popupTypes.ok),
             new popupCall("Apricot", "APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT APRICOT ", popupTypes.ok),
             new popupCall("Hi how are you", "how r u going", popupTypes.yesno, chatBot),
             new popupCall("WARNING", "You are being investigated by the IRS for tax Fraud. Unless you pay $1000 by clicking 'yes' you will be put in jail", popupTypes.yesno, taxFraud),
-            new popupCall("CONGRATULATIONS!!!", "You have won 1 million dollars! Click 'yes' to claim your prize!", popupTypes.yesno, winner)};
-
-        level1Adds = new popupCall[] { new popupCall("LIMITED TIME OFFER", "LOSE ALL YOUR MONEY IN OUR PYRAMID SCHEME!! JUST CLICK YES TO JOIN!", popupTypes.yesno, joinPyramid),
-            new popupCall("Anonymous benefactor", "Real community chest hours here. Click Yes for a free $1000", popupTypes.yesno, freeMoney),
-            new popupCall("Buy our even BETTER add blocker!", "Buy our even BETTER add blocker for a more streamlined experience. Also we'll stop selling your information to the highest bidder", popupTypes.ok),
             new popupCall("CONGRATULATIONS!!!", "You have won 1 million dollars! Click 'yes' to claim your prize!", popupTypes.yesno, winner),
-            new popupCall("Hi how are you", "how r u going", popupTypes.yesno, chatBot)};
+            new popupCall("Anonymous benefactor", "Real community chest hours here. Click Yes for a free $1000", popupTypes.yesno, freeMoney)};
     }
 
     public void SendCrashWarning() {
@@ -166,16 +161,16 @@ public class NewsController : MonoBehaviour
           (!CrashController.instance.crashHappening && rand.NextDouble() < randomSpamChance)){
 
             if (!donePopup) {
-                NotificationController.instance.ShowPopup(level0Adds[2]);
+                NotificationController.instance.ShowPopup(new popupCall("Buy our new ad blocker!", "Buy our new ad blocker from the shop to avoid nuisance popups! Aren't they annoying? Espicially when the market is crashing :) Yes this is a threat", popupTypes.ok, spookyWarning));
                 donePopup = true;
                 return;
             }
-            switch (addBlockerLevel) {
+            switch (adBlockerLevel) {
                 case 0:
-                    NotificationController.instance.ShowPopup(level0Adds[rand.Next(0, level0Adds.Length)]);
+                    NotificationController.instance.ShowPopup(ads[rand.Next(0, ads.Length)]);
                     break;
                 case 1:
-                    if(rand.NextDouble() < 0.7f) NotificationController.instance.ShowPopup(level1Adds[rand.Next(0, level1Adds.Length)]);
+                    if(rand.NextDouble() < 0.3f) NotificationController.instance.ShowPopup(ads[rand.Next(0, ads.Length)]);
                     break;
             }
         }

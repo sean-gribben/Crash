@@ -10,6 +10,8 @@ public class CrashController : MonoBehaviour
     void OnEnable() { crashCtr = this; MarketController.onMarketTick += crashTick; }
     void OnDisable() { crashCtr = null; MarketController.onMarketTick -= crashTick; }
 
+    public AudioSource crashWarningNoise;
+
     public int crashFrequency; // The average number of in game hours until a crash occurs
     public float crashStrength; // The degree in which the stocks will plummet (on average)
     public int crashWarning; // How many hours before hand to start sending warnings
@@ -27,10 +29,17 @@ public class CrashController : MonoBehaviour
     public int crashing;
     public int recovery;
 
+    bool firstCrash = true;
+
     System.Random rand; 
 
     private void Start() {
         rand = MarketController.instance.rand;
+    }
+
+    public void CauseCrash() {
+        timeSinceLast = 0;
+        crashDelay = 1;
     }
 
     void crashTick(string p) {
@@ -46,7 +55,16 @@ public class CrashController : MonoBehaviour
         }
 
         if(crashing > 0) {
-            crashHappening = true;
+            if (!crashHappening) {
+                crashHappening = true;
+                crashWarningNoise.Play();
+                MusicController.instance.PlayCrashMusic();
+
+                if (firstCrash) {
+                    NotificationController.instance.ShowNotification("The market is crashing! Quick, sell your stocks so you can buy them back when they're cheap!", 5f);
+                }
+            }
+            
             crashing--;
             if(crashing <= 0) {
                 crashHappening = false;
