@@ -11,9 +11,6 @@ public class MarketController : MonoBehaviour
     void OnEnable() { market = this; }
     void OnDisable() { market = null; }
 
-    public float minStartVal = 5f;
-    public float maxStartVal = 10f;
-
     public float minVolatility = 1f;
     public float maxVolatility = 6f;
 
@@ -26,10 +23,12 @@ public class MarketController : MonoBehaviour
     public float secondsPerHour;
     float sphTimer;
 
+    public bool started = false;
+
     public GameObject stock;
     public List<StockBehaviour> stonks = new List<StockBehaviour>();
 
-    System.Random rand = new System.Random();
+    public System.Random rand = new System.Random();
 
     private string[] tickers = { "PISS", "DUMP", "REC", "ESS", "IVE", "MUC", "SUSY", "BALZ", "IMP", "GME", "RKT", "BB", 
         "NOK", "AMC", "SPCE", "LIT", "NUT", "JAZZ", "POG", "KEK", "UWU", "GARY", "LGBT", "MOON", "ATSM", "E",
@@ -49,7 +48,7 @@ public class MarketController : MonoBehaviour
         sphTimer = secondsPerHour;
 
         // Add an initial stock
-        AddStock();
+        AddStock(100f, 150f);
 /*        AddStock();
         AddStock();
         AddStock();
@@ -62,14 +61,14 @@ public class MarketController : MonoBehaviour
     }
 
 
-    void AddStock() {
+    public void AddStock(float minStartVal, float maxStartVal) {
         GameObject newStock = Instantiate(stock);
 
         StockBehaviour stockBehav = newStock.GetComponent<StockBehaviour>();
         stockBehav.rand = rand;
         stockBehav.values.Add(RandomUtility.NextFloat(rand, minStartVal, maxStartVal));
         stockBehav.volatility = RandomUtility.NextFloat(rand, minVolatility, maxVolatility);
-        stockBehav.dph = RandomUtility.NextFloat(rand, minDph, maxDph);
+        stockBehav.trueDph = RandomUtility.NextFloat(rand, minDph, maxDph);
         stockBehav.code = tickers[stonks.Count];
         stockBehav.minStockPrice = minStockPrice;
 
@@ -85,8 +84,23 @@ public class MarketController : MonoBehaviour
         stockAddLocator -= 52f;
     }
 
+    public void UpdateStocks(float newdph) {
+        foreach(StockBehaviour stck in stonks) {
+            stck.dph = newdph;
+        }
+    }
+
+    public void ResetStocks() {
+        foreach (StockBehaviour stck in stonks) {
+            stck.dph = stck.trueDph;
+        }
+    }
+
     void Update()
     {
+        if (!started) {
+            return;
+        }
         sphTimer -= Time.deltaTime;
         if(sphTimer <= 0){
             sphTimer = secondsPerHour;

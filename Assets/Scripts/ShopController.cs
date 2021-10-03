@@ -33,15 +33,6 @@ public class ShopController : MonoBehaviour
     public AudioSource NewItemSound;
     public AudioSource ErrorSound;
 
-
-    void pass() {
-
-    }
-
-    private void Start() {
-        // AddShopItem(new ShopItem(400, "Testing1", pass));
-    }
-
     public void AddShopItem(ShopItem item) {
         if(shopItems.Count >= 14) {
             queuedItems.Add(item);
@@ -89,6 +80,7 @@ public class ShopController : MonoBehaviour
             }
 
             itemTrans.anchoredPosition = newPos;
+            shopItems[i].Animate();
 
         }
 

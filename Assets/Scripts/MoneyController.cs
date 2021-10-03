@@ -7,7 +7,7 @@ public class MoneyController : MonoBehaviour
 {
 
     private static MoneyController bank;
-    public static MoneyController instace { get { return bank; } }
+    public static MoneyController instance { get { return bank; } }
     void OnEnable() { bank = this; MarketController.onMarketTickLate += UpdateTotalMoney; }
     void OnDisable() { bank = null; MarketController.onMarketTickLate -= UpdateTotalMoney; }
 

@@ -1038,6 +1038,7 @@ GameObject:
   - component: {fileID: 809914717}
   - component: {fileID: 809914716}
   - component: {fileID: 809914715}
+  - component: {fileID: 809914719}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1132,6 +1133,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &809914719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809914714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56f3f102ec9ec44e8c05c13ba312de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &909275044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,6 +2849,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1903991174}
   - component: {fileID: 1903991175}
+  - component: {fileID: 1903991177}
+  - component: {fileID: 1903991176}
   m_Layer: 5
   m_Name: Market
   m_TagString: Untagged
@@ -2874,16 +2889,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a799d745fcaf88341b288a6dc49e2b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minStartVal: 5
-  maxStartVal: 10
   minVolatility: 0.05
   maxVolatility: 0.4
   minDph: 0
   maxDph: 0.07
   minStockPrice: 3
   secondsPerHour: 1.6666666
+  started: 0
   stock: {fileID: 4051666559129394417, guid: 4c717143837dc4b449d4da432a5072d8, type: 3}
   stonks: []
+--- !u!114 &1903991176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903991173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96b9c99131076a48b990b2471c3973c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomNewsChance: 0.05
+  randomSpamChance: 0.05
+  randomSpamChanceInCrash: 0.2
+  newsLevel: 0
+  addBlockerLevel: 0
+--- !u!114 &1903991177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903991173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6850ce12b4b015644b6abc5831640f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashFrequency: 20
+  crashStrength: -0.3
+  crashWarning: 5
+  crashChance: 1
+  crashLength: 10
+  recoveryLength: 10
+  recoveryStrength: 0.2
+  initialDelay: 0
+  crashHappening: 0
+  timeSinceLast: 0
+  crashDelay: 0
+  crashing: 0
+  recovery: 0
 --- !u!1 &1935355457
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,7 +3161,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b96067838adfe3c4481f5df3d85f1fb9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.512
+  m_Volume: 0.28
   m_Pitch: 1
   Loop: 0
   Mute: 0

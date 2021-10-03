@@ -10,8 +10,11 @@ public class ShopItemBehaviour : MonoBehaviour
 
     public int price;
     public string description;
+    public float animationTime = 3f;
 
     public System.Action itemFunc;
+
+    public bool isAnimating = false;
 
     Text titleText;
     Text descriptionText;
@@ -25,8 +28,7 @@ public class ShopItemBehaviour : MonoBehaviour
         titleText = transform.Find("Title").GetComponent<Text>();
         descriptionText = transform.Find("Description").GetComponent<Text>();
 
-        titleText.text = "$" + price.ToString("N0");
-        descriptionText.text = description;
+        Animate();
 
         button = GetComponent<Button>();
         button.onClick.AddListener(Clicked);
@@ -34,7 +36,7 @@ public class ShopItemBehaviour : MonoBehaviour
     }
 
     void Clicked() {
-        if (!MoneyController.instace.UpdateLiquid(-price, false)) {
+        if (!MoneyController.instance.UpdateLiquid(-price, false)) {
             ShopController.instance.ErrorSound.Play();
             if(Time.realtimeSinceStartup - lastClicked > 5f) {
                 NotificationController.instance.ShowNotification("You do not have the liquid funds to purchase this item!");
@@ -50,6 +52,15 @@ public class ShopItemBehaviour : MonoBehaviour
         ShopController.instance.RemoveShopItem(id);
 
         Destroy(gameObject);
+    }
+
+    public void Animate() {
+        if (isAnimating) {
+            return;
+        }
+        isAnimating = true;
+        TextAnimator.instance.AnimateText(titleText, "$" + price.ToString("N0"), animationTime, this);
+        TextAnimator.instance.AnimateText(descriptionText, description, animationTime, this);
     }
 
 }

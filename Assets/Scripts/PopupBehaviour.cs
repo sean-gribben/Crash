@@ -9,14 +9,16 @@ public enum popupTypes {
     ok
 }
 
-struct popupCall {
 
-    public popupCall(string ti, string txt, popupTypes typ, System.Action hook) {
-        title = ti;
-        text = txt;
-        type = typ;
-        hookFunc = hook;
+public struct popupCall {
+    public popupCall(string title, string text, popupTypes type, System.Action hookFunc = null) {
+        this.title = title;
+        this.text = text;
+        this.type = type;
+        this.hookFunc = hookFunc;
     }
+
+    
 
     public string title;
     public string text;
@@ -61,8 +63,8 @@ public class PopupBehaviour : MonoBehaviour
         noButton = transform.Find("NoButton").GetComponent<Button>();
         okButton = transform.Find("OkButton").GetComponent<Button>();
 
-        yesButton.onClick.AddListener(ClosePopup);
         yesButton.onClick.AddListener(CallHook);
+        yesButton.onClick.AddListener(ClosePopup);
 
         noButton.onClick.AddListener(ClosePopup);
         okButton.onClick.AddListener(CallHook);

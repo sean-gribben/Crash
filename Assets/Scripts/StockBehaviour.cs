@@ -10,6 +10,7 @@ public class StockBehaviour : MonoBehaviour
     public float currValue;
     public int stocks = 0;
     public float volatility;
+    public float trueDph;
     public float dph;
     public float minStockPrice;
 
@@ -49,6 +50,9 @@ public class StockBehaviour : MonoBehaviour
         
     }
 
+    private void Start() {
+        dph = trueDph;
+    }
 
 
     public void UpdateSocks(string p) {
@@ -78,7 +82,7 @@ public class StockBehaviour : MonoBehaviour
     }
 
     void buyStocks() {
-        if (!MoneyController.instace.UpdateLiquid(-currValue*QuantityController.instance.stockQuantity)) return;
+        if (!MoneyController.instance.UpdateLiquid(-currValue*QuantityController.instance.stockQuantity)) return;
         stocks += QuantityController.instance.stockQuantity;
         stockCountText.text = stocks.ToString();
     }
@@ -88,7 +92,7 @@ public class StockBehaviour : MonoBehaviour
             return;
         }
         stocks -= QuantityController.instance.stockQuantity;
-        MoneyController.instace.UpdateLiquid(currValue);
+        MoneyController.instance.UpdateLiquid(currValue);
         stockCountText.text = stocks.ToString();
     }
 }
