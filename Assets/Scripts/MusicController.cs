@@ -32,6 +32,12 @@ public class MusicController : MonoBehaviour
         prevSong.Play();
     }
 
+    public void StopCrashMusic() {
+        prevSong.Stop();
+        prevSong = songs[0];
+        prevSong.Play();
+    }
+
     private void Update() {
         if(prevSong.time / prevSong.clip.length > 0.99f) { // Time to play a new song
             if (CrashController.instance.crashHappening) {

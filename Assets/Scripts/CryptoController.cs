@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 public class CryptoController : MonoBehaviour
 {
+    private static CryptoController crpt;
+    public static CryptoController instance { get { return crpt; } }
+    void OnEnable() { crpt = this; }
+    void OnDisable() { crpt = null; }
+
     public GameObject textPrefab;
 
     public AudioSource bonkPressSound;
 
     public float mineCost = 75f;
+    public int mineValue = 1;
 
     Button bonkButton;
     RectTransform jumpableArea;
@@ -41,8 +47,6 @@ public class CryptoController : MonoBehaviour
             return;
         }
 
-        if (!MoneyController.instance.UpdateLiquid(-mineCost)) return;
-
         RectTransform bonkTrans = bonkButton.GetComponent<RectTransform>();
 
         Vector2 min = new Vector2(jumpableArea.rect.xMin + bonkTrans.rect.width / 2, jumpableArea.rect.yMin + bonkTrans.rect.height / 2);
@@ -72,9 +76,9 @@ public class CryptoController : MonoBehaviour
 
         StockBehaviour stonk = MarketController.instance.stonks[rand.Next(0, MarketController.instance.stonks.Count)];
 
-        crypHdlr.text = "+1 " + stonk.code;
+        crypHdlr.text = "+" + mineValue + " " + stonk.code;
 
-        stonk.stocks++;
+        stonk.stocks += mineValue;
         stonk.UpdateSocks("Init");
 
         bonkPressSound.Play();

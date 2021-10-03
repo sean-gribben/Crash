@@ -32,17 +32,15 @@ public class MarketController : MonoBehaviour
 
     public System.Random rand = new System.Random();
 
-    private string[] tickers = { "PISS", "DUMP", "REC", "ESS", "IVE", "MUC", "SUSY", "BALZ", "IMP", "GME", "RKT", "BB", 
+    private string[] tickers = { "PISS", "DUMP", "MUC", "SUSY", "BALZ", "IMP", "GME", "RKT", "BB", 
         "NOK", "AMC", "SPCE", "LIT", "NUT", "JAZZ", "POG", "KEK", "UWU", "GARY", "LGBT", "MOON", "ATSM", "E",
-        "LMAO", "WHO", "DID", "THIS"};
+        "LMAO"};
 
     private RectTransform rectTrans;
     private float stockAddLocator = 182f;
 
     public static event System.Action<string> onMarketTick;
     public static event System.Action onMarketTickLate;
-
-    public bool boughtStockPriceViewer = false;
 
     public bool paused = true;
 

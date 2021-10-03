@@ -63,6 +63,7 @@ public class StockBehaviour : MonoBehaviour
             valueText.text = lastVal.ToString();
             codeText.text = code;
             stockCountText.text = stocks.ToString();
+            stockValueText.text = (currValue * stocks).ToString("N0");
             return;
         }
         
@@ -80,18 +81,15 @@ public class StockBehaviour : MonoBehaviour
         }
         currValue = newVal;
 
-        if (MarketController.instance.boughtStockPriceViewer) {
-            stockValueText.text = (currValue * stocks).ToString("N0");
-        }
+
+        stockValueText.text = (currValue * stocks).ToString("N0");
     }
 
     void buyStocks() {
         if (!MoneyController.instance.UpdateLiquid(-currValue*QuantityController.instance.stockQuantity)) return;
         stocks += QuantityController.instance.stockQuantity;
         stockCountText.text = stocks.ToString();
-        if (MarketController.instance.boughtStockPriceViewer) {
-            stockValueText.text = (currValue * stocks).ToString("N0");
-        }
+        stockValueText.text = (currValue * stocks).ToString("N0");
     }
 
     void sellStocks() {
@@ -106,8 +104,6 @@ public class StockBehaviour : MonoBehaviour
         stocks -= takeAway;
         MoneyController.instance.UpdateLiquid(currValue * takeAway);
         stockCountText.text = stocks.ToString();
-        if (MarketController.instance.boughtStockPriceViewer) {
-            stockValueText.text = (currValue * stocks).ToString("N0");
-        }
+        stockValueText.text = (currValue * stocks).ToString("N0");
     }
 }

@@ -161,7 +161,7 @@ public class NewsController : MonoBehaviour
           (!CrashController.instance.crashHappening && rand.NextDouble() < randomSpamChance)){
 
             if (!donePopup) {
-                NotificationController.instance.ShowPopup(new popupCall("Buy our new ad blocker!", "Buy our new ad blocker from the shop to avoid nuisance popups! Aren't they annoying? Espicially when the market is crashing :) Yes this is a threat", popupTypes.ok, spookyWarning));
+                NotificationController.instance.ShowPopup(new popupCall("Buy our new ad blocker!", "Buy our new ad blocker from the shop to avoid nuisance popups! Aren't they annoying? Especially when the market is crashing :) Yes this is a threat", popupTypes.ok, spookyWarning));
                 donePopup = true;
                 return;
             }
@@ -170,7 +170,7 @@ public class NewsController : MonoBehaviour
                     NotificationController.instance.ShowPopup(ads[rand.Next(0, ads.Length)]);
                     break;
                 case 1:
-                    if(rand.NextDouble() < 0.3f) NotificationController.instance.ShowPopup(ads[rand.Next(0, ads.Length)]);
+                    if(rand.NextDouble() < 0.6f) NotificationController.instance.ShowPopup(ads[rand.Next(0, ads.Length)]);
                     break;
             }
         }

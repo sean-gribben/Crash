@@ -29,8 +29,6 @@ public class CrashController : MonoBehaviour
     public int crashing;
     public int recovery;
 
-    bool firstCrash = true;
-
     System.Random rand; 
 
     private void Start() {
@@ -59,10 +57,7 @@ public class CrashController : MonoBehaviour
                 crashHappening = true;
                 crashWarningNoise.Play();
                 MusicController.instance.PlayCrashMusic();
-
-                if (firstCrash) {
-                    NotificationController.instance.ShowNotification("The market is crashing! Quick, sell your stocks so you can buy them back when they're cheap!", 5f);
-                }
+                NotificationController.instance.ShowNotification("The market is crashing! Quick, sell your stocks so you can buy them back when they're cheap!", 5f);
             }
             
             crashing--;
@@ -70,6 +65,8 @@ public class CrashController : MonoBehaviour
                 crashHappening = false;
                 recovery = recoveryLength;
                 MarketController.instance.UpdateStocks(recoveryStrength);
+                MusicController.instance.StopCrashMusic();
+                NotificationController.instance.ShowNotification("The stocks are cheap! Buy them up now before they bounce back!", 5f);
             }
             return;
         }

@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class TimeController : MonoBehaviour
 {
     private static TimeController timer;
-    public static TimeController instace { get { return timer; } }
+    public static TimeController instance { get { return timer; } }
     void OnEnable() { timer = this; MarketController.onMarketTick += UpdateTime; }
     void OnDisable() { timer = null; MarketController.onMarketTick -= UpdateTime; }
 
 
     Text timeText;
-    public int days = 365;
+    public int days = 183;
     public int hours = 0;
 
 
